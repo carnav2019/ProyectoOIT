@@ -52,6 +52,19 @@ var datos_mirti = L.geoJson(datos_MIRTI, {
     onEachFeature: popUpInfo,
 }).addTo(map);
 // ====================================  AÑADIR ÁREA SEMBRADA DE ALGODÓN EN DIFERENTES AÑOS===========================================================
+// Función para generar un cartel al posarce sobre el departamento
+function popUpInfoAlgodon (feature, layer) {
+    if (feature.properties && feature.properties.nam) {
+        layer.bindTooltip("<b>" + feature.properties.nam + "</b>"+
+        "<br> Área Sembrada: "+ feature.properties.Area_Sem, {
+            interactive: true,
+            permanent: false,
+            fillopacity: 0.01,
+            direction: 'top',
+            className: 'popup',
+        });
+    }
+}
 // Generar Función de colores para RTI
 function getColorAlgodon(d) {
     return d > 21021 ? '#672202' :
@@ -77,10 +90,12 @@ function styleAlgodon(feature) {
 // añadir área sembrada de Algodón 2018-2019 al mapa
 var algodon_18_19 = L.geoJson(Algodon_18_19, {
     style:styleAlgodon,
+    onEachFeature: popUpInfoAlgodon,
 }).addTo(map);
 // añadir área sembrada de Algodón 2019-2020 al mapa
 var algodon_19_20 = L.geoJson(Algodon_19_20, {
     style:styleAlgodon,
+    onEachFeature: popUpInfoAlgodon,
 }).addTo(map);
 
 // Unir las capas que pretendemos controlar mediante la función L.control.layers()

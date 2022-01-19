@@ -6,13 +6,10 @@ var osmLayer =  L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     subdomains:['mt0','mt1','mt2','mt3']
 }).addTo(map);
-
-// // Crear una red de iconos con logos de lluvias
-// var redMarker = L.icon({
-//     color :'red',
-//     iconUrl:'cloud-showers-heavy-solid.svg',
-//     iconSize:[40,47]
-// })
+// Fnción que hace zoom a cada evento al hacer click con el cursor
+function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+}
 
 // Generar Función de colores para RTI
 function getColor(d) {
@@ -45,7 +42,11 @@ function popUpInfo (feature, layer) {
             direction: 'top',
             className: 'popup',
         });
+        layer.on({
+            click: zoomToFeature
+        });
     }
+    
 }
 var datos_mirti = L.geoJson(datos_MIRTI, {
     style: style,
@@ -62,6 +63,9 @@ function popUpInfoAlgodon (feature, layer) {
             fillopacity: 0.01,
             direction: 'top',
             className: 'popup',
+        });
+        layer.on({
+            click: zoomToFeature
         });
     }
 }
@@ -89,12 +93,12 @@ function styleAlgodon(feature) {
 }
 // añadir área sembrada de Algodón 2018-2019 al mapa
 var algodon_18_19 = L.geoJson(Algodon_18_19, {
-    style:styleAlgodon,
+    style: styleAlgodon,
     onEachFeature: popUpInfoAlgodon,
 }).addTo(map);
 // añadir área sembrada de Algodón 2019-2020 al mapa
 var algodon_19_20 = L.geoJson(Algodon_19_20, {
-    style:styleAlgodon,
+    style: styleAlgodon,
     onEachFeature: popUpInfoAlgodon,
 }).addTo(map);
 

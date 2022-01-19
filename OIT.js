@@ -1,4 +1,4 @@
-var map = L.map('map').setView([-29.25,-60.43], 8); 
+var map = L.map('map').setView([-29.25,-60.43], 6); 
 
 // Agregar Google Hibrido como mapa base
 var osmLayer =  L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{

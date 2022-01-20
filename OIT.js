@@ -128,13 +128,13 @@ var ChangeLegend = L.control({position: 'bottomright'});
 legend.onAdd = function(map){
     var div = L.DomUtil.create('div','info legend');
     div.innerHTML +=
-    '<img src="leyenda_area_sembrada.jpg" width="120" height="150"/>';
+    '<img id = "legend" src="leyenda_area_sembrada.jpg" width="120" height="150"/>';
     return div;
 };
 ChangeLegend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'info legend');
     div.innerHTML +=
-    '<img src="RTI_leyenda.jpg" width="120" height="150"/>';
+    '<img id = "legend" src="RTI_leyenda.jpg" width="120" height="150"/>';
     return div;
 };
 // Añadir la leyenda de área sembrada por defecto

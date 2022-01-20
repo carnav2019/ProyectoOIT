@@ -76,7 +76,7 @@ function getColorAlgodon(d) {
            d > 11017 ? '#de001d' :
            d > 6464  ? '#fc0800' :
            d > 2500  ? '#f6755e' :
-           d > 0     ? '#9ec5c0' :
+           d > 0     ? '#f8c5c0' :
            '#ffffff';
     
 }  

@@ -1,16 +1,15 @@
-var map = L.map('map').setView([-29.25,-61.43], 6); 
+
 
 // Agregar Google Hibrido como mapa base
 var osmLayer =  L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
     maxZoom: 18,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     subdomains:['mt0','mt1','mt2','mt3']
-}).addTo(map);
+});
 // Fnción que hace zoom a cada evento al hacer click con el cursor
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
 }
-
 // Generar Función de colores para RTI
 function getColor(d) {
     return d == 1 ? '#fefefc' :
@@ -31,6 +30,7 @@ function style(feature) {
         fillOpacity: 0.9
     };
 }
+
 // Función para generar un cartel al posarce sobre el departamento
 function popUpInfo (feature, layer) {
     if (feature.properties && feature.properties.nam) {
@@ -42,7 +42,7 @@ function popUpInfo (feature, layer) {
             direction: 'top',
             className: 'popup',
         });
-        layer.on({
+        layer.on({      
             click: zoomToFeature
         });
     }
@@ -51,8 +51,9 @@ function popUpInfo (feature, layer) {
 var datos_mirti = L.geoJson(datos_MIRTI, {
     style: style,
     onEachFeature: popUpInfo,
-}).addTo(map);
-// ====================================  AÑADIR ÁREA SEMBRADA DE ALGODÓN EN DIFERENTES AÑOS===========================================================
+});
+
+// ================= AÑADIR ÁREA SEMBRADA DE ALGODÓN EN DIFERENTES AÑOS====================================
 // Función para generar un cartel al posarce sobre el departamento
 function popUpInfoAlgodon (feature, layer) {
     if (feature.properties && feature.properties.nam) {
@@ -91,17 +92,27 @@ function styleAlgodon(feature) {
         fillOpacity: 1
     };
 }
+
 // añadir área sembrada de Algodón 2018-2019 al mapa
 var algodon_18_19 = L.geoJson(Algodon_18_19, {
     style: styleAlgodon,
     onEachFeature: popUpInfoAlgodon,
-}).addTo(map);
+});
 // añadir área sembrada de Algodón 2019-2020 al mapa
 var algodon_19_20 = L.geoJson(Algodon_19_20, {
     style: styleAlgodon,
     onEachFeature: popUpInfoAlgodon,
-}).addTo(map);
+});
 
+var map = L.map('map',{
+    center: [-29.25,-61.43],
+    zoom: 6,
+    layers: [osmLayer, algodon_19_20]
+});
+// Hacer un diccionario con los mapa base que podemos usar
+var baseMaps = {
+    "Google HYBRID": osmLayer,
+};
 // Unir las capas que pretendemos controlar mediante la función L.control.layers()
 var capas = {
     "Datos MIRTI": datos_mirti,
@@ -109,4 +120,34 @@ var capas = {
     "Algodón 19-20": algodon_19_20
 }
 
-L.control.layers(capas).addTo(map)
+L.control.layers(capas, baseMaps,{groupCheckboxes: true}).addTo(map);
+
+// Añadir leyenda en función del mapa que se selecciona
+var legend = L.control({position: 'bottomright'});
+var ChangeLegend = L.control({position: 'bottomright'});
+legend.onAdd = function(map){
+    var div = L.DomUtil.create('div','info legend');
+    div.innerHTML +=
+    '<img src="leyenda_area_sembrada.jpg" width="120" height="150"/>';
+    return div;
+};
+ChangeLegend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'info legend');
+    div.innerHTML +=
+    '<img src="RTI_leyenda.jpg" width="120" height="150"/>';
+    return div;
+};
+// Añadir la leyenda de área sembrada por defecto
+legend.addTo(map)
+// Función que permite visualizar la leyenda en función de la capa seleccionada
+map.on('baselayerchange', function (eventLayer) {
+    if (eventLayer.name === 'Datos MIRTI') {
+        this.removeControl(legend);
+        ChangeLegend.addTo(this);
+    } else { 
+        this.removeControl(ChangeLegend);
+        legend.addTo(this);
+    }
+});
+
+

@@ -1,5 +1,3 @@
-
-
 // Agregar Google Hibrido como mapa base
 var osmLayer =  L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
     maxZoom: 18,
@@ -141,7 +139,6 @@ var map = L.map('map',{
 
 // Hacer un diccionario con los mapa base que podemos usar
 var baseMaps = {
-    "Google HYBRID": osmLayer,
     "Open Street Map": OSM
 };
 // Unir las capas que pretendemos controlar mediante la función L.control.layers()
@@ -174,13 +171,16 @@ legend.addTo(map)
 // Función que permite visualizar la leyenda en función de la capa seleccionada
 map.on('baselayerchange', function (eventLayer) {
     if (eventLayer.name === 'Datos MIRTI') {
+        osmLayer.addTo(this)
         this.removeControl(legend);
         ChangeLegend.addTo(this);
     } else if (eventLayer.name === 'Algodón 19-20') {
+        osmLayer.addTo(this)
         this.removeControl(ChangeLegend);
         legend.addTo(this);
         
     } else if (eventLayer.name === 'Algodón 18-19') {
+        osmLayer.addTo(this)
         this.removeControl(ChangeLegend);
         legend.addTo(this);
     } else {

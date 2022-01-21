@@ -154,5 +154,6 @@ map.on('baselayerchange', function (eventLayer) {
         legend.addTo(this);
     }
 });
+// Agregar información para interpretar 
 
 

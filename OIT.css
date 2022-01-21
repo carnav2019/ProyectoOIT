@@ -31,9 +31,22 @@ body {
 #map {
     height: 90vh;
     width: 100%;
-    z-index: 2;
+    z-index: 0;
 }
 #legend {
     margin-bottom: 5vh;
     margin-right: 1vh;
+}
+
+#contenedor-mapa{
+    margin: 0%;
+    position: relative;
+}
+.btn-abrir-popup{
+    z-index: 1;
+    position: absolute;
+    margin-left: 11px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 80px;
 }

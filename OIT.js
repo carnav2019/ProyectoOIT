@@ -10,10 +10,35 @@ var osmLayer =  L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}
 var OSM = new L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
 });
+
 // Fnción que hace zoom a cada evento al hacer click con el cursor
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
 }
+// Función para generar un cartel al posarce sobre el departamento
+function popUpfondo (feature, layer) {
+    if (feature.properties && feature.properties.nam) {
+        layer.bindTooltip("<b>" + feature.properties.nam + "</b>", {
+            interactive: true,
+            permanent: false,
+            fillopacity: 0.01,
+            direction: 'top',
+            className: 'popup',
+        });
+        layer.on({      
+            click: zoomToFeature
+        });
+    }
+    
+}
+// Capa de fondo de departamentos
+var capa_fondo = L.geoJson(Algodon_19_20, {
+    fillOpacity:0,
+    color:'black',
+    weight: 1,
+    onEachFeature: popUpfondo,
+})
+
 // Generar Función de colores para RTI
 function getColor(d) {
     return d == 1 ? '#fefefc' :
@@ -111,8 +136,9 @@ var algodon_19_20 = L.geoJson(Algodon_19_20, {
 var map = L.map('map',{
     center: [-29.25,-61.43],
     zoom: 6,
-    layers: [osmLayer, algodon_19_20]
+    layers: [osmLayer,capa_fondo, algodon_19_20]
 });
+
 // Hacer un diccionario con los mapa base que podemos usar
 var baseMaps = {
     "Google HYBRID": osmLayer,
@@ -120,6 +146,7 @@ var baseMaps = {
 };
 // Unir las capas que pretendemos controlar mediante la función L.control.layers()
 var capas = {
+    "Google HYBRID": osmLayer,
     "Datos MIRTI": datos_mirti,
     "Algodón 18-19": algodon_18_19,
     "Algodón 19-20": algodon_19_20
@@ -155,5 +182,29 @@ map.on('baselayerchange', function (eventLayer) {
     }
 });
 // Agregar información para interpretar 
+var info = L.control({
+    position: 'topright'
+});
 
+info.onAdd = function(map){
+    var div = L.DomUtil.create('div','boton');
+    div.innerHTML +=
+    '<button id="btn-abrir-popup" class="btn-abrir-popup">Mas info...</button>'+
+    ';'
+    return div;
+};
+var btnAbrirPopup = document.getElementById('btn-abrir-popup'),
+	overlay = document.getElementById('overlay'),
+	popup = document.getElementById('popup');
+	btnCerrarPopup = document.getElementById('btn-cerrar-popup');
 
+btnAbrirPopup.addEventListener('click', function(){
+	overlay.classList.add('active');
+	popup.classList.add('active');
+});
+
+btnCerrarPopup.addEventListener('click', function(e){
+	e.preventDefault();
+	overlay.classList.remove('active');
+	popup.classList.remove('active');
+});

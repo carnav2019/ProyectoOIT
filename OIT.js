@@ -176,10 +176,17 @@ map.on('baselayerchange', function (eventLayer) {
     if (eventLayer.name === 'Datos MIRTI') {
         this.removeControl(legend);
         ChangeLegend.addTo(this);
-    } else { 
+    } else if (eventLayer.name === 'Algodón 19-20') {
         this.removeControl(ChangeLegend);
         legend.addTo(this);
-    }
+        
+    } else if (eventLayer.name === 'Algodón 18-19') {
+        this.removeControl(ChangeLegend);
+        legend.addTo(this);
+    } else {
+        this.removeControl(ChangeLegend);
+        this.removeControl(legend);
+    };
 });
 // Agregar información para interpretar 
 var info = L.control({

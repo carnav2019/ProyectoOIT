@@ -143,17 +143,17 @@ var baseMaps = {
 };
 // Unir las capas que pretendemos controlar mediante la función L.control.layers()
 var capas = {
-    "Google HYBRID": osmLayer,
-    "Datos MIRTI": datos_mirti,
-    "Algodón 18-19": algodon_18_19,
-    "Algodón 19-20": algodon_19_20
+    'Departamentos': capa_fondo,
+    'Datos MIRTI': datos_mirti,
+    'Algodón 18-19': algodon_18_19,
+    'Algodón 19-20': algodon_19_20
 }
 
-L.control.layers(capas, baseMaps,{groupCheckboxes: true}).addTo(map);
-
+L.control.layers(capas,baseMaps,{groupCheckboxes: true}).addTo(map);
 // Añadir leyenda en función del mapa que se selecciona
 var legend = L.control({position: 'bottomright'});
 var ChangeLegend = L.control({position: 'bottomright'});
+
 legend.onAdd = function(map){
     var div = L.DomUtil.create('div','info legend');
     div.innerHTML +=
@@ -167,25 +167,26 @@ ChangeLegend.onAdd = function (map) {
     return div;
 };
 // Añadir la leyenda de área sembrada por defecto
-legend.addTo(map)
+legend.addTo(map);
 // Función que permite visualizar la leyenda en función de la capa seleccionada
 map.on('baselayerchange', function (eventLayer) {
     if (eventLayer.name === 'Datos MIRTI') {
-        osmLayer.addTo(this)
+        osmLayer.addTo(this);
         this.removeControl(legend);
         ChangeLegend.addTo(this);
     } else if (eventLayer.name === 'Algodón 19-20') {
-        osmLayer.addTo(this)
+        osmLayer.addTo(this);
         this.removeControl(ChangeLegend);
         legend.addTo(this);
         
     } else if (eventLayer.name === 'Algodón 18-19') {
-        osmLayer.addTo(this)
+        osmLayer.addTo(this);
         this.removeControl(ChangeLegend);
         legend.addTo(this);
     } else {
-        this.removeControl(ChangeLegend);
         this.removeControl(legend);
+        this.removeControl(ChangeLegend);
+        osmLayer.addTo(this);
     };
 });
 // Agregar información para interpretar 

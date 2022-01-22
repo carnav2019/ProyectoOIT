@@ -149,7 +149,7 @@ var capas = {
     'Algodón 19-20': algodon_19_20
 }
 
-L.control.layers(capas,baseMaps,{groupCheckboxes: true}).addTo(map);
+L.control.layers(capas,baseMaps,{}).addTo(map);
 // Añadir leyenda en función del mapa que se selecciona
 var legend = L.control({position: 'bottomright'});
 var ChangeLegend = L.control({position: 'bottomright'});
@@ -188,21 +188,10 @@ map.on('baselayerchange', function (eventLayer) {
         osmLayer.addTo(this);
     };
 });
-// Agregar información para interpretar 
-var info = L.control({
-    position: 'topright'
-});
-
-info.onAdd = function(map){
-    var div = L.DomUtil.create('div','boton');
-    div.innerHTML +=
-    '<button id="btn-abrir-popup" class="btn-abrir-popup">Mas info...</button>'+
-    ';'
-    return div;
-};
+// Agregar información para interpretar las capas
 var btnAbrirPopup = document.getElementById('btn-abrir-popup'),
 	overlay = document.getElementById('overlay'),
-	popup = document.getElementById('popup');
+	popup = document.getElementById('popup-popup'),
 	btnCerrarPopup = document.getElementById('btn-cerrar-popup');
 
 btnAbrirPopup.addEventListener('click', function(){
@@ -215,3 +204,11 @@ btnCerrarPopup.addEventListener('click', function(e){
 	overlay.classList.remove('active');
 	popup.classList.remove('active');
 });
+
+
+
+
+
+
+
+

@@ -42,14 +42,143 @@ body {
     margin: 0%;
     position: relative;
 }
-.btn-abrir-popup{
+/* .btn-abrir-popup{
     z-index: 1;
     position: absolute;
     margin-left: 11px;
     font-size: 16px;
     font-weight: bold;
     margin-top: 80px;
+} */
+.contenedor-mapa .btn-abrir-popup {
+    z-index: 1;
+    position: absolute;
+    margin-left: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 80px;
+	/* padding: 0 20px; */
+	height: 30px;
+	/* line-height: 40px; */
+	border: none;
+	color: #fff;
+	background: #5E7DE3;
+	border-radius: 3px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: .3s ease all;
+	cursor: pointer;
+    width: 30px;
 }
-#legendvacio{
-    background-color: white;
+.titulo-popup{
+    color: white;
+    
 }
+/* ------------------------- */
+/* POPUP */
+/* ------------------------- */
+
+.contenedor-mapa .overlay {
+	background: rgba(0,0,0,.3);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	visibility: hidden;
+}
+.contenedor-mapa .overlay .active{
+    visibility: visible;
+}
+.contenedor-mapa .overlay .popup-popup{
+	background: #F8F8F8;
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+	border-radius: 3px;
+	padding: 10px;
+	text-align: center;
+	width: 50%;
+    max-height: 50%;
+    overflow: auto;
+	
+	/* transition: .3s ease all;
+	transform: scale(0.7);
+	opacity: 0; */
+}
+
+.contenedor-mapa .overlay .popup-popup .btn-cerrar-popup {
+	font-size: 16px;
+	line-height: 16px;
+	display: block;
+	text-align: right;
+	transition: .3s ease all;
+	color: #BBBBBB;
+}
+.contenedor-mapa .overlay .popup-popup .btn-cerrar-popup:hover {
+    color: black;
+
+
+}
+
+.contenedor-mapa .overlay .popup-popup .h3 {
+	font-size: 36px;
+    font-weight: bold;
+	margin-bottom: 10px;
+    background-color: lawngreen;
+    width: 100%;
+    margin-top: -20px;
+	/* opacity: 0; */
+}
+.contenedor-mapa .overlay .popup-popup .texto-info{
+    font-size: 14px;
+    text-align: justify;
+    font-weight: 100;
+
+}
+.contenedor-mapa .overlay .popup-popup .texto-info .imagen-popup{
+    margin-top: 12px;
+    margin-bottom: 12px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+/*
+/* ------------------------- */
+/* ANIMACIONES */
+/* ------------------------- */
+/* .popup.active {	transform: scale(1); opacity: 1; }
+.popup.active h3 { animation: entradaTitulo .8s ease .5s forwards; }
+.popup.active h4 { animation: entradaSubtitulo .8s ease .5s forwards; }
+.popup.active .contenedor-inputs { animation: entradaInputs 1s linear 1s forwards; } */
+/*
+@keyframes entradaTitulo {
+	from {
+		opacity: 0;
+		transform: translateY(-25px);
+	}
+
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@keyframes entradaSubtitulo {
+	from {
+		opacity: 0;
+		transform: translateY(25px);
+	}
+
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@keyframes entradaInputs {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+*/

@@ -32,8 +32,8 @@ function popUpfondo (feature, layer) {
 // Capa de fondo de departamentos
 var capa_fondo = L.geoJson(Algodon_19_20, {
     fillOpacity:0,
-    color:'black',
-    weight: 1,
+    color:'indigo',
+    weight: 2,
     onEachFeature: popUpfondo,
 })
 
@@ -134,7 +134,7 @@ var algodon_19_20 = L.geoJson(Algodon_19_20, {
 var map = L.map('map',{
     center: [-29.25,-61.43],
     zoom: 6,
-    layers: [osmLayer,capa_fondo, algodon_19_20]
+    layers: [osmLayer,capa_fondo]
 });
 
 // Hacer un diccionario con los mapa base que podemos usar
@@ -166,8 +166,7 @@ ChangeLegend.onAdd = function (map) {
     '<img id = "legend" src="RTI_leyenda.jpg" width="120" height="150"/>';
     return div;
 };
-// Añadir la leyenda de área sembrada por defecto
-legend.addTo(map);
+
 // Función que permite visualizar la leyenda en función de la capa seleccionada
 map.on('baselayerchange', function (eventLayer) {
     if (eventLayer.name === 'Datos MIRTI') {

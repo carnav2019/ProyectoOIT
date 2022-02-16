@@ -119,7 +119,31 @@ function styleAlgodon(feature) {
         fillOpacity: 1
     };
 }
+//Añadir icono a cada desmotadora
+var redMarker = L.icon({
+    color :'red',
+    iconUrl:'algodonPNG.png',
+    iconSize:[35,35]
+})
+// ================= AÑADIR Nombre de las desmotadoras====================================
+// Función para generar un cartel al posarce sobre el departamento
+function popUpInfoDes (feature, layer) {
+    if (feature.properties && feature.properties.Nombre) {
+        layer.bindTooltip("<b>" + feature.properties.Nombre + "</b>", {
+            interactive: true,
+            permanent: false,
+            fillopacity: 0.01,
+            direction: 'top',
+            className: 'popup',
+        });
+        layer.setIcon(redMarker, {opacity:0.01})
+    }
+}
 
+//Añadir la capa de desmotadoras 2021-2022
+var desmotadoras = L.geoJson(Desmotadoras, {
+    onEachFeature: popUpInfoDes
+});
 // añadir área sembrada de Algodón 2018-2019 al mapa
 var algodon_18_19 = L.geoJson(Algodon_18_19, {
     style: styleAlgodon,
@@ -144,6 +168,7 @@ var baseMaps = {
 // Unir las capas que pretendemos controlar mediante la función L.control.layers()
 var capas = {
     'Departamentos': capa_fondo,
+    'Desmotadoras' : desmotadoras,
     'Datos MIRTI': datos_mirti,
     'Algodón 18-19': algodon_18_19,
     'Algodón 19-20': algodon_19_20

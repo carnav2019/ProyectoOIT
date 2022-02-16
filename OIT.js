@@ -162,7 +162,7 @@ var map = L.map('map',{
     layers: [osmLayer,capa_fondo]
 });
 //Mapa de calor de las desmotadoras
-var calorMap = L.imageOverlay('Desmotadora_Mcalor.png',[[-24.748,-65.162],[ -30.474,-57.987]])
+var calorMap = L.imageOverlay('Desmotadora_Mcalor.png',[[-24.748,-65.162],[ -30.474,-57.987]]);
 // Hacer un diccionario con los mapa base que podemos usar
 var baseMaps = {
     "Open Street Map": OSM,

@@ -144,6 +144,7 @@ function popUpInfoDes (feature, layer) {
 var desmotadoras = L.geoJson(Desmotadoras, {
     onEachFeature: popUpInfoDes
 });
+
 // añadir área sembrada de Algodón 2018-2019 al mapa
 var algodon_18_19 = L.geoJson(Algodon_18_19, {
     style: styleAlgodon,
@@ -160,24 +161,29 @@ var map = L.map('map',{
     zoom: 6,
     layers: [osmLayer,capa_fondo]
 });
-
+//Mapa de calor de las desmotadoras
+var calorMap = L.imageOverlay('desmotadoras_Mcalor.png',[[-24.748,-65.162],[ -30.474,-57.987]])
 // Hacer un diccionario con los mapa base que podemos usar
 var baseMaps = {
-    "Open Street Map": OSM
+    "Open Street Map": OSM,
 };
 // Unir las capas que pretendemos controlar mediante la función L.control.layers()
 var capas = {
     'Departamentos': capa_fondo,
-    'Desmotadoras' : desmotadoras,
     'Datos MIRTI': datos_mirti,
+    'Mapa de Calor Desmotadoras': calorMap,
     'Algodón 18-19': algodon_18_19,
     'Algodón 19-20': algodon_19_20
 }
-
+var capas1 = {
+    'Desmotadoras': desmotadoras
+}
 L.control.layers(capas,baseMaps,{}).addTo(map);
+L.control.layers(null,capas1,{}).addTo(map);
 // Añadir leyenda en función del mapa que se selecciona
 var legend = L.control({position: 'bottomright'});
 var ChangeLegend = L.control({position: 'bottomright'});
+var etqMapCalor = L.control({position: 'bottomright'});
 
 legend.onAdd = function(map){
     var div = L.DomUtil.create('div','info legend');
@@ -191,25 +197,40 @@ ChangeLegend.onAdd = function (map) {
     '<img id = "legend" src="RTI_leyenda.jpg" width="120" height="150"/>';
     return div;
 };
+etqMapCalor.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'info legend');
+    div.innerHTML +=
+    '<img id = "legend" src="Etq_Mapa_de_calor_Desmotadoras.jpg" width="120" height="150"/>';
+    return div;
+};
 
 // Función que permite visualizar la leyenda en función de la capa seleccionada
 map.on('baselayerchange', function (eventLayer) {
     if (eventLayer.name === 'Datos MIRTI') {
         osmLayer.addTo(this);
         this.removeControl(legend);
+        this.removeControl(etqMapCalor);
         ChangeLegend.addTo(this);
     } else if (eventLayer.name === 'Algodón 19-20') {
         osmLayer.addTo(this);
         this.removeControl(ChangeLegend);
+        this.removeControl(etqMapCalor);
         legend.addTo(this);
         
     } else if (eventLayer.name === 'Algodón 18-19') {
         osmLayer.addTo(this);
         this.removeControl(ChangeLegend);
+        this.removeControl(etqMapCalor);
         legend.addTo(this);
-    } else {
+    }else if (eventLayer.name === 'Mapa de Calor Desmotadoras') {
+        osmLayer.addTo(this);
+        this.removeControl(ChangeLegend);
+        this.removeControl(legend);
+        etqMapCalor.addTo(this);
+    }  else {
         this.removeControl(legend);
         this.removeControl(ChangeLegend);
+        this.removeControl(etqMapCalor);
         osmLayer.addTo(this);
     };
 });

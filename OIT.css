@@ -44,7 +44,6 @@ body {
     }
 }
 .contenedor-principal{
-    
     height: 10vh;
     width: 100%;
     color: indigo;
@@ -71,7 +70,9 @@ body {
 }
 
 .Titulo {
-    margin-left: 20px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 #map {
     height: 90vh;

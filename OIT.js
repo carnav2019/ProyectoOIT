@@ -75,11 +75,11 @@ function popUpInfo (feature, layer) {
     }
     
 }
-var datos_mirti = L.geoJson(datos_MIRTI, {
+
+var datos_mirti = L.geoJson(Datos_MIRTI_act, {
     style: style,
     onEachFeature: popUpInfo,
 });
-
 // ================= AÑADIR ÁREA SEMBRADA DE ALGODÓN EN DIFERENTES AÑOS====================================
 // Función para generar un cartel al posarce sobre el departamento
 function popUpInfoAlgodon (feature, layer) {

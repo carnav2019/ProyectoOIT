@@ -4,7 +4,45 @@ body {
     
     background-color: gray;
 }
-
+.inicio {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,.7);
+    position: fixed;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    animation: iniPagWeb 15s both;
+}
+.logoInicio {
+    width: 25vh;
+    height: 25vh;
+    animation: iniAnimate 15s infinite;
+}
+@keyframes iniAnimate {
+    0% {opacity: 0; }
+    10% {opacity: 1;}
+    15% {opacity: 0;}
+    25% {opacity: 1;}
+    30% {opacity: 0;}
+    40% {opacity: 1;}
+    45% {opacity: 0;}
+    55% {opacity: 1;}
+    60% {opacity: 0;}
+    70% {opacity: 1;}
+    75% {opacity: 0;}
+    85% {opacity: 1;}
+    90% {opacity: 0;}
+    100% {opacity: 1;
+    }
+}
+@keyframes iniPagWeb{
+    100% {
+        margin-top: -100%;
+    }
+}
 .contenedor-principal{
     
     height: 10vh;
@@ -18,13 +56,20 @@ body {
     position: relative;
     z-index: 1;
     justify-content: space-between;
+    overflow: hidden;
 }
 .logo-OIT {
     height: 50px;
     width: 150px;
     margin-right: 20px;
     float: right;
+    animation: aniLogo 5s infinite;
 }
+@keyframes aniLogo {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
 .Titulo {
     margin-left: 20px;
 }
@@ -155,37 +200,15 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
-/*
-/* ------------------------- */
-/* ANIMACIONES */
-/* ------------------------- */
-/* .popup.active {	transform: scale(1); opacity: 1; }
-.popup.active h3 { animation: entradaTitulo .8s ease .5s forwards; }
-.popup.active h4 { animation: entradaSubtitulo .8s ease .5s forwards; }
-.popup.active .contenedor-inputs { animation: entradaInputs 1s linear 1s forwards; } */
-/*
-@keyframes entradaTitulo {
-	from {
-		opacity: 0;
-		transform: translateY(-25px);
-	}
-	to {
-		transform: translateY(0);
-		opacity: 1;
-	}
+.nivel-3 {
+	text-align: left;
 }
-@keyframes entradaSubtitulo {
-	from {
-		opacity: 0;
-		transform: translateY(25px);
-	}
-	to {
-		transform: translateY(0);
-		opacity: 1;
-	}
+.nivel-2 {
+	text-align: left;
 }
-@keyframes entradaInputs {
-	from { opacity: 0; }
-	to { opacity: 1; }
+.resaltar {
+    color: indigo;
 }
-*/
+.IMG-CPA{
+    width: 90%;
+}

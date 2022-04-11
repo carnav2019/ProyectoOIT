@@ -6,7 +6,7 @@ body {
 }
 .inicio {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-color: rgba(0,0,0,.7);
     position: fixed;
     display: flex;
@@ -40,7 +40,7 @@ body {
 }
 @keyframes iniPagWeb{
     100% {
-        margin-top: -100%;
+        margin-top: -500%;
     }
 }
 .contenedor-principal{

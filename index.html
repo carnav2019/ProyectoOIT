@@ -6,30 +6,131 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index,follow">
     <title>Proyecto OIT</title>
+
     <link rel="icon" href="IMG/logo_oit_pestaña.jpg">
     <!-- Añadir el archivo CSS -->
-    <link rel="stylesheet" href="css/OIT.css">  
-    <!-- Añadir el CDN de Leaflet -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    <link rel="stylesheet" href="css/OIT.css"> 
+     
+    <!-- Añadir el CDN de Leaflet css-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
     crossorigin=""/>
+    
     <!-- Añadir CDN de JS -->
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin=""></script>
+    <!-- CDN de Librería de JS versión 1.8 -->
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin=""></script>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-   
+ 
     <!-- Añadir libreria para opacidad de las capas -->
     <link rel="stylesheet" href="dist/L.Control.HtmlLegend.css" />
     <!-- Control de leyendas -->
     <script src="dist/L.Control.HtmlLegend.js"></script>
-    <!-- incorporar rayas a los poligonos -->
-    <script src="js/leaflet-polygon.fillPattern.js"></script>
 
     <!-- Añadir control de paneles y estilo -->
     <script src="js/leaflet-panel-layers.js"></script>
     <link rel="stylesheet" href="css/leaflet-panel-layers.css"/>
-    <script>
+     <!-- añadir paquete para patrones de fondo -->
+    <script src="js/leaflet.pattern-src.js"></script>
+    <!-- añadir paquete para imprimir el mapa -->
+    <script src="js/leaflet.browser.print.js"></script>
+    <!-- añadir paquete para descagar el mapa -->
+    <script src="dist/bundle.js"></script>
+    <!-- Añadir boostrap para botones -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+</head>
+<body>
+     <!-- añadir archivo datos MIRTI Actualizados-->
+     <script src="js/Datos_MIRTI_3_Provincias_Act.js"></script>
+     <!-- añadir archivo de perfiles de productores -->
+     <script src="js/Perfil_de_productor.js"></script>
+     <!-- añadir archivo área sembrada de Algodón 2019-2020 -->
+     <script src="js/Area Algodon_19_20.js"></script>
+    <!-- Añadir el GeoJson de desmotadoras -->
+    <script src="js/Desmotadoras.js"></script>
+    <div class="inicio">
+        <img class="logoInicio" src="IMG/algodonPNG.png" alt="">
+    </div>
+     <div class="contenedor-principal">
+        <div class="Titulo">SIG Cadena de Algodón en Argentina</div>
+        <a  class="OIT" href="https://www.ilo.org/global/lang--es/index.htm">
+            <img  class="logo-OIT" src="IMG/Logo_OIT.png" alt="">
+        </a>
+    </div>  
+    <!-- boton para imprimir mapa -->
+    <center>
+        <button id="imprimir-mapa" class="btn btn-primary hidden-print" onclick="myFunction()">🖨</button>
+   </center>
+     <!-- Agregar el div del mapa -->
+     <div class="contenedor-mapa" id="contenedor-mapa">
+        <button id="btn-abrir-popup" class="btn-abrir-popup">↹</button>
+         <div id="map"></div>
+         <div class="overlay" id="overlay">
+          <div class="popup-popup" id="popup-popup">
+             <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="x">X</i></a>
+              <h3 class="h3">La cadena de valor del Algodón en la Argentina</h3>
+              <h1 class="texto-info">
+                La cadena algodonera-textil argentina, se compone de una fase primaria de producción de
+                algodón y una fase industrial que se subdivide en tres segmentos: la producción de fibra, los
+                manufacturados textiles - con sus tres productos: hilados, tejidos planos y tejidos de punto -
+                y por último el segmento de confecciones e indumentaria. </h1>
+                <h2 class="nivel-2">Etapas de la Producción de Algodón</h2>
+                <img class="IMG-CPA" src="IMG/leyenda_area_sembrada.jpg"></img>
+                <h3 class="nivel-3">La producción de Algodón en bruto</h3>
+               <h1 class="texto-info">
+               La fase primaria comprende el cultivo y la obtención del algodón en bruto o algodón con semilla. 
+               En Argentina, la región algodonera se concentra principalmente entre los 25º y los 31º de latitud sur, con nuevas 
+               áreas de siembra hacia el norte y el sur de dichas latitudes. Las provincias que generan la mayor 
+               producción del país son: Santiago del Estero, Chaco, Santa Fe y Formosa, y en menor porcentaje Salta, 
+               Corrientes, Catamarca, Córdoba, Entre Ríos y San Luis.</h1>
+               <h1 class="texto-info">
+               En la capa <p class="resaltar">densidad de lotes de algodón </p> se observa la distribución de lotes de algodón en las provincias de Santa Fe, 
+               Santiago del Estero y Chaco, en un radio de 50 km. En la provincia de Santa Fe la cuenca algodonera 
+               se divide en dos sectores: al este; los departamentos General Obligado, San Javier y Vera y al oeste; el 
+               departamento de 9 de Julio, siendo este último el principal departamento en la producción de algodón de la provincia. 
+               Por su parte, en Santiago del Estero se distinguen dos zonas productivas: al este la zona de secano  en donde 
+               se encuentran grandes productores; que comprende los departamentos Alberdi, Moreno, Aguirre, Belgrano, General Taboada, 
+               siendo en éstos donde se produce entre el 60 y el 70% del algodón de la provincia. En la zona oeste, se destaca la producción 
+               </h1>
+
+                <h1 class="texto-info">departamentos arrojan un riesgo promedio para Argentina a nivel departamental del 6,54%. Los departamentos
+                con riesgo alto, mayor al 8,8%, son 51. En Argentina, según el modelo, el riesgo de trabajo infantil y adolescente es:
+                i) creciente con la edad de niñas, niños y adolescentes (NNyA), ii) mayor en los varones, iii) aumenta para NNyA en
+                hogares cuyo jefe es asalariado no registrado o es trabajador no asalariado en las zonas urbanas. Además, dentro de
+                los factores de protección, se encuentran: i) el mayor nivel de escolaridad del jefe del hogar, ii) la asistencia a la escuela
+                de NNyA y iii) la cobertura de salud paga para NNyA.
+                departamentos arrojan un riesgo promedio para Argentina a nivel departamental del 6,54%. Los departamentos
+                con riesgo alto, mayor al 8,8%, son 51. En Argentina, según el modelo, el riesgo de trabajo infantil y adolescente es:
+                i) creciente con la edad de niñas, niños y adolescentes (NNyA), ii) mayor en los varones, iii) aumenta para NNyA en
+                hogares cuyo jefe es asalariado no registrado o es trabajador no asalariado en las zonas urbanas. Además, dentro de
+                los factores de protección, se encuentran: i) el mayor nivel de escolaridad del jefe del hogar, ii) la asistencia a la escuela
+                de NNyA y iii) la cobertura de salud paga para NNyA.
+                departamentos arrojan un riesgo promedio para Argentina a nivel departamental del 6,54%. Los departamentos
+                con riesgo alto, mayor al 8,8%, son 51. En Argentina, según el modelo, el riesgo de trabajo infantil y adolescente es:
+                i) creciente con la edad de niñas, niños y adolescentes (NNyA), ii) mayor en los varones, iii) aumenta para NNyA en
+                hogares cuyo jefe es asalariado no registrado o es trabajador no asalariado en las zonas urbanas. Además, dentro de
+                los factores de protección, se encuentran: i) el mayor nivel de escolaridad del jefe del hogar, ii) la asistencia a la escuela
+                de NNyA y iii) la cobertura de salud paga para NNyA.
+                departamentos arrojan un riesgo promedio para Argentina a nivel departamental del 6,54%. Los departamentos
+                con riesgo alto, mayor al 8,8%, son 51. En Argentina, según el modelo, el riesgo de trabajo infantil y adolescente es:
+                i) creciente con la edad de niñas, niños y adolescentes (NNyA), ii) mayor en los varones, iii) aumenta para NNyA en
+                hogares cuyo jefe es asalariado no registrado o es trabajador no asalariado en las zonas urbanas. Además, dentro de
+                los factores de protección, se encuentran: i) el mayor nivel de escolaridad del jefe del hogar, ii) la asistencia a la escuela
+                de NNyA y iii) la cobertura de salud paga para NNyA.
+                departamentos arrojan un riesgo promedio para Argentina a nivel departamental del 6,54%. Los departamentos
+                con riesgo alto, mayor al 8,8%, son 51. En Argentina, según el modelo, el riesgo de trabajo infantil y adolescente es:
+                i) creciente con la edad de niñas, niños y adolescentes (NNyA), ii) mayor en los varones, iii) aumenta para NNyA en
+                hogares cuyo jefe es asalariado no registrado o es trabajador no asalariado en las zonas urbanas. Además, dentro de
+                los factores de protección, se encuentran: i) el mayor nivel de escolaridad del jefe del hogar, ii) la asistencia a la escuela
+                de NNyA y iii) la cobertura de salud paga para NNyA.
+              </h1>
+          </div>
+        </div>
+     </div>
+     
+     <script>
         var controlCapas;
         $(document).ready(function () {
         // Agregar Google Hibrido como mapa base
@@ -207,16 +308,62 @@
             };
         }
 
-        // añadir los perfiles de productores al mapa
-        var perfilProductores = L.geoJson(perfilProductor, {
-            style: styleperfPro,
-            onEachFeature: popUpInfoAlgodon,
-        });
-        
+     
         var map = L.map('map',{
             center: [-29.25,-61.43],
             zoom: 6,
             layers: [osmLayer,capa_fondo]
+        });
+
+
+    //    Añadir las diferentes trama de fondo para cada
+    //    Perfil de productores
+        var stripes_1 = new L.StripePattern({
+                                      angle: 45,
+                                      weight: 2,
+                                      color: 'black',
+                                      opacity: 1,});
+        stripes_1.addTo(map);
+        var stripes_2 = new L.StripePattern({
+
+                                      angle: 0,
+                                      weight: 2,
+                                      color: 'darkred',
+                                      fillOpacity: 1,});
+        stripes_2.addTo(map);
+        var stripes_3 = new L.StripePattern({
+                                      angle: 90,
+                                      weight: 2,
+                                      color: 'green',
+                                      opacity: 1,});
+        stripes_3.addTo(map);
+
+        var perfilProductores = L.geoJson(perfilProductor,{
+            style: function(feature){
+                switch (feature.properties.id){
+                    case 1 : return {fillPattern:stripes_1,
+                    width:0.5,
+                    color: 'black',
+                    opacity:0,
+                    fillOpacity: 0.75
+                    };
+
+                    case 2 : return {fillPattern: stripes_2,
+                    width:0.5,
+                    color: 'black',
+                    opacity:0,
+                    fillOpacity: 0.75
+                    };
+
+                    case 3 : return {fillPattern: stripes_3,
+                    width: 0.5,
+                    color: 'black',
+                    opacity:0,
+                    fillOpacity: 0.75
+                    };
+                }
+
+            }
         });
         
         // Hacer un diccionario con los mapa base que podemos usar
@@ -240,31 +387,95 @@
             {name:'Algodón 19-20',
             layer: algodon_19_20},
             {name: 'Desmotadoras',
-            layer: desmotadoras}
+            layer: desmotadoras},
+            {name:'Perfil de Productor',
+             layer:perfilProductores}
             ]
         }];
-        base = {
-            "Google HYBRID":osmLayer,
-            "Open Street Map": OSM
-                }
-        capa = {
-            "Departamentos": capa_fondo,
-            "Datos MIRTI":datos_mirti,
-            "Área sembrada de Algodón":algodon_19_20,
-            "Desmotadoras":desmotadoras,
-            "Perfil de Productores": perfilProductores
-
-        }
         
-        // controlCapas = L.control.panelLayers(baseMaps, capas,
-        //         {
-        //           compact: true,
-        //           // collapsed: true,	
-        //           collapsibleGroups: true
-        //         }).addTo(map);
-        L.control.layers(base,capa,{}).addTo(map);
+        controlCapas = L.control.panelLayers(baseMaps, capas,
+                {
+                  compact: true,
+                  collapsed: true ,
+                  collapsibleGroups: true, 
+                });
+
+        ////////////////////////////////////////////////////////////////////////////
+        //////////////////añadir leyendas//////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////
+        // Añadir leyenda en función del mapa que se selecciona
+// var legend = L.control({position: 'bottomleft'});
+// var ChangeLegend = L.control({position: 'bottomleft'});
+// var etqMapCalor = L.control({position: 'bottomleft'});
+
+// legend.onAdd = function(map){
+//     var div = L.DomUtil.create('div','info legend');
+//     div.innerHTML +=
+//     '<img id = "legend" src="IMG/leyenda_area_sembrada.jpg" width="120" height="150"/>';
+//     return div;
+// };
+// ChangeLegend.onAdd = function (map) {
+//     var div = L.DomUtil.create('div', 'info legend');
+//     div.innerHTML +=
+//     '<img id = "legend" src="IMG/RTI_leyenda.jpg" width="120" height="150"/>';
+//     return div;
+// };
+// etqMapCalor.onAdd = function (map) {
+//     var div = L.DomUtil.create('div', 'info legend');
+//     div.innerHTML +=
+//     '<img id = "legend" src="IMG/Etq_Mapa_de_calor_Desmotadoras.jpg" width="120" height="150"/>';
+//     return div;
+// };
+
+// // Función que permite visualizar la leyenda en función de la capa seleccionada
+// map.on('overlayadd', function (eventLayer) {
+//     if (eventLayer.name === 'Datos MIRTI') {
+//         osmLayer.addTo(this);
+//         ChangeLegend.addTo(this);
+//     } else if (eventLayer.name === 'Algodón 19-20') {
+//         osmLayer.addTo(this);
+//         legend.addTo(this);
+        
+//     } else if (eventLayer.name === 'Algodón 18-19') {
+//         osmLayer.addTo(this);
+//         legend.addTo(this);
+//     }else if (eventLayer.name === 'Mapa de Calor Desmotadoras') {
+//         osmLayer.addTo(this);
+//         etqMapCalor.addTo(this);
+//     }  else {
+//        osmLayer.addTo(this);
+//     };
+// });
+// map.on('overlayremove', function (eventLayer) {
+//     if (eventLayer.name === 'Datos MIRTI') {
+//         this.removeControl(ChangeLegend);
+                
+//     } else if (eventLayer.name === 'Algodón 19-20' || eventLayer.name === 'Algodón 18-19') {
+        
+//         this.removeControl(legend);      
+           
+//     }else if (eventLayer.name === 'Mapa de Calor Desmotadoras') {
+//         this.removeControl(etqMapCalor);
+        
+//     }
+// });
+       
+
+		
+    //    // Añadir código para imprimir el mapa
+    //     PrintControl = L.control.browserPrint({
+    //     closePopupsOnPrint: true,
+    //     title: "Imprimir el mapa",
+    //     printModesNames: {
+    //     Portrait: "Vertical",
+    //     Landscape: "Horitzontal"
+    //     },
+        
+    //   });
+    //   PrintControl.addTo(map)
+    //   controlCapas.addTo(map)
             // Añadimos el control de opacidad de las capas
-        var layer1 = L.control.htmllegend({
+    var layer1 = L.control.htmllegend({
               position: 'bottomright',
               legends: [{
                 name: 'Datos Mirti',
@@ -312,7 +523,7 @@
         var layer2 = L.control.htmllegend({
               position: 'bottomright',
               legends: [{
-                name: 'Datos Mirti',
+                name: 'Área de producción \n de algodón',
                 layer: algodon_19_20,
                 elements: [{
                     label: 'Alto Riesgo',
@@ -351,106 +562,24 @@
                     layer.setStyle({fillOpacity: opacity , defaultOpacity:opacity})
                 }
         })
+         // Añadir script de descarga del archivo
+         var printer = L.easyPrint({
+      		tileLayer: osmLayer,
+      		sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
+      		filename: 'myMap',
+      		exportOnly: true,
+      		hideControlContainer: true
+		});
+        
         map.addControl(layer2)
+        controlCapas.addTo(map)    
         
-        
-        var DeleteControl  = L.Control.extend({
-              options: {
-                position: 'topright'
-              },
-           
-              })
-        map.addControl(new DeleteControl())
-        });
+    });
         
     </script>
-</head>
-<body>
-     <!-- añadir archivo datos MIRTI Actualizados-->
-     <script src="js/Datos_MIRTI_3_Provincias_Act.js"></script>
-     <!-- añadir archivo de perfiles de productores -->
-     <script src="js/Perfil_de_productor.js"></script>
-     <!-- añadir archivo área sembrada de Algodón 2019-2020 -->
-     <script src="js/Area Algodon_19_20.js"></script>
-    <!-- Añadir el GeoJson de desmotadoras -->
-    <script src="js/Desmotadoras.js"></script>
-    <div class="inicio">
-        <img class="logoInicio" src="IMG/algodonPNG.png" alt="">
-    </div>
-     <div class="contenedor-principal">
-        <div class="Titulo">SIG Cadena de Algodón en Argentina</div>
-        <a  class="OIT" href="https://www.ilo.org/global/lang--es/index.htm">
-            <img  class="logo-OIT" src="IMG/Logo_OIT.png" alt="">
-        </a>
-    </div>  
-     <!-- Agregar el div del mapa -->
-     <div class="contenedor-mapa" id="contenedor-mapa">
-        <button id="btn-abrir-popup" class="btn-abrir-popup">↹</button>
-         <div id="map"></div>
-         <div class="overlay" id="overlay">
-          <div class="popup-popup" id="popup-popup">
-             <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="x">X</i></a>
-              <h3 class="h3">La cadena de valor del Algodón en la Argentina</h3>
-              <h1 class="texto-info">
-                La cadena algodonera-textil argentina, se compone de una fase primaria de producción de
-                algodón y una fase industrial que se subdivide en tres segmentos: la producción de fibra, los
-                manufacturados textiles - con sus tres productos: hilados, tejidos planos y tejidos de punto -
-                y por último el segmento de confecciones e indumentaria. </h1>
-                <h2 class="nivel-2">Etapas de la Producción de Algodón</h2>
-                <img class="IMG-CPA" src="./IMG/Figura_LCDAlgodon.jpg"></img>
-                <h3 class="nivel-3">La producción de Algodón en bruto</h3>
-               <h1 class="texto-info">
-               La fase primaria comprende el cultivo y la obtención del algodón en bruto o algodón con semilla. 
-               En Argentina, la región algodonera se concentra principalmente entre los 25º y los 31º de latitud sur, con nuevas 
-               áreas de siembra hacia el norte y el sur de dichas latitudes. Las provincias que generan la mayor 
-               producción del país son: Santiago del Estero, Chaco, Santa Fe y Formosa, y en menor porcentaje Salta, 
-               Corrientes, Catamarca, Córdoba, Entre Ríos y San Luis.</h1>
-               <h1 class="texto-info">
-               En la capa <p class="resaltar">densidad de lotes de algodón </p> se observa la distribución de lotes de algodón en las provincias de Santa Fe, 
-               Santiago del Estero y Chaco, en un radio de 50 km. En la provincia de Santa Fe la cuenca algodonera 
-               se divide en dos sectores: al este; los departamentos General Obligado, San Javier y Vera y al oeste; el 
-               departamento de 9 de Julio, siendo este último el principal departamento en la producción de algodón de la provincia. 
-               Por su parte, en Santiago del Estero se distinguen dos zonas productivas: al este la zona de secano  en donde 
-               se encuentran grandes productores; que comprende los departamentos Alberdi, Moreno, Aguirre, Belgrano, General Taboada, 
-               siendo en éstos donde se produce entre el 60 y el 70% del algodón de la provincia. En la zona oeste, se destaca la producción 
-               </h1>
-
-                <h1 class="texto-info">departamentos arrojan un riesgo promedio para Argentina a nivel departamental del 6,54%. Los departamentos
-                con riesgo alto, mayor al 8,8%, son 51. En Argentina, según el modelo, el riesgo de trabajo infantil y adolescente es:
-                i) creciente con la edad de niñas, niños y adolescentes (NNyA), ii) mayor en los varones, iii) aumenta para NNyA en
-                hogares cuyo jefe es asalariado no registrado o es trabajador no asalariado en las zonas urbanas. Además, dentro de
-                los factores de protección, se encuentran: i) el mayor nivel de escolaridad del jefe del hogar, ii) la asistencia a la escuela
-                de NNyA y iii) la cobertura de salud paga para NNyA.
-                departamentos arrojan un riesgo promedio para Argentina a nivel departamental del 6,54%. Los departamentos
-                con riesgo alto, mayor al 8,8%, son 51. En Argentina, según el modelo, el riesgo de trabajo infantil y adolescente es:
-                i) creciente con la edad de niñas, niños y adolescentes (NNyA), ii) mayor en los varones, iii) aumenta para NNyA en
-                hogares cuyo jefe es asalariado no registrado o es trabajador no asalariado en las zonas urbanas. Además, dentro de
-                los factores de protección, se encuentran: i) el mayor nivel de escolaridad del jefe del hogar, ii) la asistencia a la escuela
-                de NNyA y iii) la cobertura de salud paga para NNyA.
-                departamentos arrojan un riesgo promedio para Argentina a nivel departamental del 6,54%. Los departamentos
-                con riesgo alto, mayor al 8,8%, son 51. En Argentina, según el modelo, el riesgo de trabajo infantil y adolescente es:
-                i) creciente con la edad de niñas, niños y adolescentes (NNyA), ii) mayor en los varones, iii) aumenta para NNyA en
-                hogares cuyo jefe es asalariado no registrado o es trabajador no asalariado en las zonas urbanas. Además, dentro de
-                los factores de protección, se encuentran: i) el mayor nivel de escolaridad del jefe del hogar, ii) la asistencia a la escuela
-                de NNyA y iii) la cobertura de salud paga para NNyA.
-                departamentos arrojan un riesgo promedio para Argentina a nivel departamental del 6,54%. Los departamentos
-                con riesgo alto, mayor al 8,8%, son 51. En Argentina, según el modelo, el riesgo de trabajo infantil y adolescente es:
-                i) creciente con la edad de niñas, niños y adolescentes (NNyA), ii) mayor en los varones, iii) aumenta para NNyA en
-                hogares cuyo jefe es asalariado no registrado o es trabajador no asalariado en las zonas urbanas. Además, dentro de
-                los factores de protección, se encuentran: i) el mayor nivel de escolaridad del jefe del hogar, ii) la asistencia a la escuela
-                de NNyA y iii) la cobertura de salud paga para NNyA.
-                departamentos arrojan un riesgo promedio para Argentina a nivel departamental del 6,54%. Los departamentos
-                con riesgo alto, mayor al 8,8%, son 51. En Argentina, según el modelo, el riesgo de trabajo infantil y adolescente es:
-                i) creciente con la edad de niñas, niños y adolescentes (NNyA), ii) mayor en los varones, iii) aumenta para NNyA en
-                hogares cuyo jefe es asalariado no registrado o es trabajador no asalariado en las zonas urbanas. Además, dentro de
-                los factores de protección, se encuentran: i) el mayor nivel de escolaridad del jefe del hogar, ii) la asistencia a la escuela
-                de NNyA y iii) la cobertura de salud paga para NNyA.
-              </h1>
-          </div>
-        </div>
-     </div>
-    
+   
      <!-- Añade el archivo JS -->
      <script src="js/OIT.js"></script> 
+     
 </body>
 </html>

@@ -89,21 +89,34 @@ body {
     margin: 0%;
     position: relative;
 }
-/* .btn-abrir-popup{
+#imprimir-mapa{
     z-index: 1;
     position: absolute;
-    margin-left: 11px;
-    font-size: 16px;
+    margin-left: 12px;
     font-weight: bold;
     margin-top: 80px;
-} */
+	height: 30px;
+	display: flex;
+	border: none;
+	color: #fff;
+	background: #5E7DE3;
+	border-radius: 3px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: .3s ease all;
+	cursor: pointer;
+    width: 30px;
+}
+#logo-boton-imprimir{
+    margin-left: -5px;
+}
 .contenedor-mapa .btn-abrir-popup {
     z-index: 1;
     position: absolute;
     margin-left: 12px;
     font-size: 16px;
     font-weight: bold;
-    margin-top: 80px;
+    margin-top: 117px;
 	/* padding: 0 20px; */
 	height: 30px;
 	/* line-height: 40px; */

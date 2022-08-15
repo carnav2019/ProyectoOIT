@@ -91,6 +91,7 @@ body {
 }
 #imprimir-mapa{
     z-index: 1;
+    padding: 0px;
     position: absolute;
     margin-left: 12px;
     font-weight: bold;
@@ -99,7 +100,7 @@ body {
 	display: flex;
 	border: none;
 	color: #fff;
-	background: #5E7DE3;
+	background: #ffffff;
 	border-radius: 3px;
 	font-size: 16px;
 	cursor: pointer;
@@ -227,18 +228,30 @@ body {
 .IMG-CPA{
     width: 90%;
 }
-@media (min-width: 350px) {
-    @media (max-width: 600px) {
+@media (min-width: 450px) {
+    @media (max-width: 700px) {
         .Titulo {
             font-size: 2vh;
         }
     }
+    .contenedor-mapa .overlay .popup-popup .h3{
+        font-size: 30px;
+    }
+    .nivel-2{
+        font-size: 20px;
+    }
     
 }
 
-@media (max-width: 349px) {
+@media (max-width: 450px) {
     .Titulo {
         font-size: 1.5vh;
+    }
+    .contenedor-mapa .overlay .popup-popup .h3{
+        font-size: 24px;
+    }
+    .nivel-2{
+        font-size: 16px;
     }
 }
     

@@ -117,12 +117,12 @@ body {
     font-size: 16px;
     font-weight: bold;
     margin-top: 117px;
-	/* padding: 0 20px; */
+	padding: 0px;
 	height: 30px;
 	/* line-height: 40px; */
 	border: none;
 	color: #fff;
-	background: #5E7DE3;
+	background: #ffffff;
 	border-radius: 3px;
 	font-size: 16px;
 	cursor: pointer;
@@ -187,7 +187,7 @@ body {
 }
 
 .contenedor-mapa .overlay .popup-popup .btn-cerrar-popup:hover {
-    color: black;
+    color: rgb(193, 193, 193);
     padding: 18px 30px; /* Relleno del boton */
     background-color: #E91E63; /* Color de fondo */
 }
@@ -196,7 +196,7 @@ body {
 	font-size: 36px;
     font-weight: bold;
 	margin-bottom: 10px;
-    background-color: lawngreen;
+    background-color: rgba(170, 157, 89, 0.762);
     width: 100%;
     margin-top: 0px;
 	/* opacity: 0; */

@@ -54,7 +54,7 @@
         <img class="logoInicio" src="IMG/algodonPNG.png" alt="">
     </div>
      <div class="contenedor-principal">
-        <div class="Titulo">SIG Cadena de Algodón en Argentina</div>
+        <div class="Titulo">Sistema de información geográfica <br>sobre la cadena de algodón en Argentina</div>
         <a  class="OIT" href="https://www.ilo.org/global/lang--es/index.htm">
             <img  class="logo-OIT" src="IMG/Logo_OIT.png" alt="">
         </a>
@@ -65,67 +65,31 @@
    </center>
      <!-- Agregar el div del mapa -->
      <div class="contenedor-mapa" id="contenedor-mapa">
-        <button id="btn-abrir-popup" class="btn-abrir-popup">↹</button>
+        <button id="btn-abrir-popup" class="btn-abrir-popup"><img width="30" height="30" src="IMG/logo_info.png" alt=""></button>
          <div id="map"></div>
          <div class="overlay" id="overlay">
           <div class="popup-popup" id="popup-popup">
              <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="x">X</i></a>
-              <h3 class="h3">La cadena de valor del Algodón en la Argentina</h3>
+              <h3 class="h3">Descripción de las capas de información y uso de la herramienta</h3>
+              <h2 class="nivel-2">Descripción de las capas de información</h2>
               <h1 class="texto-info">
-                La cadena algodonera-textil argentina, se compone de una fase primaria de producción de
-                algodón y una fase industrial que se subdivide en tres segmentos: la producción de fibra, los
-                manufacturados textiles - con sus tres productos: hilados, tejidos planos y tejidos de punto -
-                y por último el segmento de confecciones e indumentaria. </h1>
-                <h2 class="nivel-2">Etapas de la Producción de Algodón</h2>
-                <img class="IMG-CPA" src="IMG/leyenda_area_sembrada.jpg"></img>
-                <h3 class="nivel-3">La producción de Algodón en bruto</h3>
-               <h1 class="texto-info">
-               La fase primaria comprende el cultivo y la obtención del algodón en bruto o algodón con semilla. 
-               En Argentina, la región algodonera se concentra principalmente entre los 25º y los 31º de latitud sur, con nuevas 
-               áreas de siembra hacia el norte y el sur de dichas latitudes. Las provincias que generan la mayor 
-               producción del país son: Santiago del Estero, Chaco, Santa Fe y Formosa, y en menor porcentaje Salta, 
-               Corrientes, Catamarca, Córdoba, Entre Ríos y San Luis.</h1>
-               <h1 class="texto-info">
-               En la capa <p class="resaltar">densidad de lotes de algodón </p> se observa la distribución de lotes de algodón en las provincias de Santa Fe, 
-               Santiago del Estero y Chaco, en un radio de 50 km. En la provincia de Santa Fe la cuenca algodonera 
-               se divide en dos sectores: al este; los departamentos General Obligado, San Javier y Vera y al oeste; el 
-               departamento de 9 de Julio, siendo este último el principal departamento en la producción de algodón de la provincia. 
-               Por su parte, en Santiago del Estero se distinguen dos zonas productivas: al este la zona de secano  en donde 
-               se encuentran grandes productores; que comprende los departamentos Alberdi, Moreno, Aguirre, Belgrano, General Taboada, 
-               siendo en éstos donde se produce entre el 60 y el 70% del algodón de la provincia. En la zona oeste, se destaca la producción 
-               </h1>
+                Se presentan estructuradas en el panel principal (extremo supérior derecho de la página). 
+                Se agrupan en dos segmentos: Los mapas base, que brindan información del terreno, localidades y rutas. Por su parte, 
+                el segundo segmento de capas corresponde a información de la cadena de producción de algodón y sus diferentes etapas:<br>
+                <strong class="resaltar">Departamentos:</strong>  Corresponde a los limites de cada departamento para las 3 provincias en estudio,<br>
+                <strong class="resaltar">Datos MIRTI:</strong> Se corresponde con la información arrojada por el modelo de riesgo de trabajo infantil y adolescente, para cada departamento, <br>
+                <strong class="resaltar">Área sembrada de algodón:</strong> Presenta el área promedio de producción de algodón, por departamento,
+                de los últimos 5 años, <br>
+                <strong class="resaltar">Desmotadoras:</strong> Está muestra la ubicación del parque de desmotadoras en las 3 provincias de estudio, <br>
+                <strong class="resaltar">Perfil del productor:</strong> Se muestra las principales zonas de producción de algódon, junto a las tipologías de 
+                productores presentes, <br>
+                <strong class="resaltar">Tamaño de las EAPs:</strong> Expresa la superficie promedio de las explotaciones agropecuarias por departamento.
+                </h1>
+                <h2 class="nivel-2">Visualización de las capas: opacidad y leyendas</h2>
+                <h1 class="texto-info">Al activar cada capa, se añade al mapa las referencias correspondientes</h1>
 
-                <h1 class="texto-info">departamentos arrojan un riesgo promedio para Argentina a nivel departamental del 6,54%. Los departamentos
-                con riesgo alto, mayor al 8,8%, son 51. En Argentina, según el modelo, el riesgo de trabajo infantil y adolescente es:
-                i) creciente con la edad de niñas, niños y adolescentes (NNyA), ii) mayor en los varones, iii) aumenta para NNyA en
-                hogares cuyo jefe es asalariado no registrado o es trabajador no asalariado en las zonas urbanas. Además, dentro de
-                los factores de protección, se encuentran: i) el mayor nivel de escolaridad del jefe del hogar, ii) la asistencia a la escuela
-                de NNyA y iii) la cobertura de salud paga para NNyA.
-                departamentos arrojan un riesgo promedio para Argentina a nivel departamental del 6,54%. Los departamentos
-                con riesgo alto, mayor al 8,8%, son 51. En Argentina, según el modelo, el riesgo de trabajo infantil y adolescente es:
-                i) creciente con la edad de niñas, niños y adolescentes (NNyA), ii) mayor en los varones, iii) aumenta para NNyA en
-                hogares cuyo jefe es asalariado no registrado o es trabajador no asalariado en las zonas urbanas. Además, dentro de
-                los factores de protección, se encuentran: i) el mayor nivel de escolaridad del jefe del hogar, ii) la asistencia a la escuela
-                de NNyA y iii) la cobertura de salud paga para NNyA.
-                departamentos arrojan un riesgo promedio para Argentina a nivel departamental del 6,54%. Los departamentos
-                con riesgo alto, mayor al 8,8%, son 51. En Argentina, según el modelo, el riesgo de trabajo infantil y adolescente es:
-                i) creciente con la edad de niñas, niños y adolescentes (NNyA), ii) mayor en los varones, iii) aumenta para NNyA en
-                hogares cuyo jefe es asalariado no registrado o es trabajador no asalariado en las zonas urbanas. Además, dentro de
-                los factores de protección, se encuentran: i) el mayor nivel de escolaridad del jefe del hogar, ii) la asistencia a la escuela
-                de NNyA y iii) la cobertura de salud paga para NNyA.
-                departamentos arrojan un riesgo promedio para Argentina a nivel departamental del 6,54%. Los departamentos
-                con riesgo alto, mayor al 8,8%, son 51. En Argentina, según el modelo, el riesgo de trabajo infantil y adolescente es:
-                i) creciente con la edad de niñas, niños y adolescentes (NNyA), ii) mayor en los varones, iii) aumenta para NNyA en
-                hogares cuyo jefe es asalariado no registrado o es trabajador no asalariado en las zonas urbanas. Además, dentro de
-                los factores de protección, se encuentran: i) el mayor nivel de escolaridad del jefe del hogar, ii) la asistencia a la escuela
-                de NNyA y iii) la cobertura de salud paga para NNyA.
-                departamentos arrojan un riesgo promedio para Argentina a nivel departamental del 6,54%. Los departamentos
-                con riesgo alto, mayor al 8,8%, son 51. En Argentina, según el modelo, el riesgo de trabajo infantil y adolescente es:
-                i) creciente con la edad de niñas, niños y adolescentes (NNyA), ii) mayor en los varones, iii) aumenta para NNyA en
-                hogares cuyo jefe es asalariado no registrado o es trabajador no asalariado en las zonas urbanas. Además, dentro de
-                los factores de protección, se encuentran: i) el mayor nivel de escolaridad del jefe del hogar, ii) la asistencia a la escuela
-                de NNyA y iii) la cobertura de salud paga para NNyA.
-              </h1>
+                <center><img class="IMG-CPA" src="IMG/image_tipolo_prod.png"></img></center>
+                 
           </div>
         </div>
      </div>
@@ -337,6 +301,18 @@
                                       color: 'green',
                                       opacity: 1,});
         stripes_3.addTo(map);
+        var stripes_4 = new L.StripePattern({
+                                      angle: 135,
+                                      weight: 2,
+                                      color: 'indigo',
+                                      opacity: 1,});
+        stripes_4.addTo(map);
+        var stripes_5 = new L.StripePattern({
+                                      angle: 90,
+                                      weight: 2,
+                                      color: 'yellow',
+                                      opacity: 1,});
+        stripes_5.addTo(map);
 
         var perfilProductores = L.geoJson(perfilProductor,{
             style: function(feature){
@@ -356,6 +332,18 @@
                     };
 
                     case 3 : return {fillPattern: stripes_3,
+                    width: 0.5,
+                    color: 'black',
+                    opacity:0,
+                    fillOpacity: 0.75
+                    };
+                    case 5 : return {fillPattern: stripes_4,
+                    width: 0.5,
+                    color: 'black',
+                    opacity:0,
+                    fillOpacity: 0.75
+                    };
+                    case 4 : return {fillPattern: stripes_5,
                     width: 0.5,
                     color: 'black',
                     opacity:0,
@@ -384,7 +372,7 @@
             layer: capa_fondo},
             {name:'Datos MIRTI',
             layer: datos_mirti},
-            {name:'Algodón 19-20',
+            {name:'Área sembrada de algodón',
             layer: algodon_19_20},
             {name: 'Desmotadoras',
             layer: desmotadoras},
@@ -423,6 +411,24 @@
                 },{
                     label: 'Zona oeste de Santa Fe',
                     html: '<img src="IMG/img_Region3.png"><\img>',
+                    style: {
+                        'background-color': 'white',
+                        'width': '30px',
+                        'height': '30px'
+                    }
+                },
+                {
+                    label: 'Zona de producción de Chaco',
+                    html: '<img src="IMG/img_Region4.png"><\img>',
+                    style: {
+                        'background-color': 'white',
+                        'width': '30px',
+                        'height': '30px'
+                    }
+                },
+                {
+                    label: 'Zona este de Santa Fe',
+                    html: '<img src="IMG/img_Region5.png"><\img>',
                     style: {
                         'background-color': 'white',
                         'width': '30px',

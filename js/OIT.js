@@ -15,8 +15,10 @@ btnCerrarPopup.addEventListener('click', function(e){
 	overlay.classList.remove('active');
 	popup.classList.remove('active');
 });
+
 // función para imprimir el mapa
 function myFunction() {
     window.print();
 }
+
 

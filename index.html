@@ -168,7 +168,7 @@
         var capa_fondo = L.geoJson(Algodon_19_20, {
             fillOpacity:0,
             color:'indigo',
-            weight: 2,
+            weight: 1,
             onEachFeature: popUpfondo,
         })
         
@@ -399,110 +399,78 @@
                   collapsed: true ,
                   collapsibleGroups: true, 
                 });
-
-        ////////////////////////////////////////////////////////////////////////////
-        //////////////////añadir leyendas//////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////
-        // Añadir leyenda en función del mapa que se selecciona
-// var legend = L.control({position: 'bottomleft'});
-// var ChangeLegend = L.control({position: 'bottomleft'});
-// var etqMapCalor = L.control({position: 'bottomleft'});
-
-// legend.onAdd = function(map){
-//     var div = L.DomUtil.create('div','info legend');
-//     div.innerHTML +=
-//     '<img id = "legend" src="IMG/leyenda_area_sembrada.jpg" width="120" height="150"/>';
-//     return div;
-// };
-// ChangeLegend.onAdd = function (map) {
-//     var div = L.DomUtil.create('div', 'info legend');
-//     div.innerHTML +=
-//     '<img id = "legend" src="IMG/RTI_leyenda.jpg" width="120" height="150"/>';
-//     return div;
-// };
-// etqMapCalor.onAdd = function (map) {
-//     var div = L.DomUtil.create('div', 'info legend');
-//     div.innerHTML +=
-//     '<img id = "legend" src="IMG/Etq_Mapa_de_calor_Desmotadoras.jpg" width="120" height="150"/>';
-//     return div;
-// };
-
-// // Función que permite visualizar la leyenda en función de la capa seleccionada
-// map.on('overlayadd', function (eventLayer) {
-//     if (eventLayer.name === 'Datos MIRTI') {
-//         osmLayer.addTo(this);
-//         ChangeLegend.addTo(this);
-//     } else if (eventLayer.name === 'Algodón 19-20') {
-//         osmLayer.addTo(this);
-//         legend.addTo(this);
-        
-//     } else if (eventLayer.name === 'Algodón 18-19') {
-//         osmLayer.addTo(this);
-//         legend.addTo(this);
-//     }else if (eventLayer.name === 'Mapa de Calor Desmotadoras') {
-//         osmLayer.addTo(this);
-//         etqMapCalor.addTo(this);
-//     }  else {
-//        osmLayer.addTo(this);
-//     };
-// });
-// map.on('overlayremove', function (eventLayer) {
-//     if (eventLayer.name === 'Datos MIRTI') {
-//         this.removeControl(ChangeLegend);
-                
-//     } else if (eventLayer.name === 'Algodón 19-20' || eventLayer.name === 'Algodón 18-19') {
-        
-//         this.removeControl(legend);      
-           
-//     }else if (eventLayer.name === 'Mapa de Calor Desmotadoras') {
-//         this.removeControl(etqMapCalor);
-        
-//     }
-// });
-       
-
-		
-    //    // Añadir código para imprimir el mapa
-    //     PrintControl = L.control.browserPrint({
-    //     closePopupsOnPrint: true,
-    //     title: "Imprimir el mapa",
-    //     printModesNames: {
-    //     Portrait: "Vertical",
-    //     Landscape: "Horitzontal"
-    //     },
-        
-    //   });
-    //   PrintControl.addTo(map)
-    //   controlCapas.addTo(map)
+            // Añadimos el control de opacidad de las capas
+            var layer1 = L.control.htmllegend({
+              position: 'bottomright',
+              legends: [{
+                name: "<center>"+'Tipología de productores'+"<br>"+'por región'+"<\center>",
+                layer: perfilProductores,
+                elements: [{
+                    label: 'Zona de riego de Santiago del Estero',
+                    html: '<img src="IMG/img_Region1.png"><\img>',
+                    style: {
+                        'width': '30px',
+                        'height': '30px'
+                    }
+                }, {
+                    label: 'Zona de secano de Santiago del Estero',
+                    html: '<img src="IMG/img_Region2.png"><\img>',
+                    style: {
+                        'background-color': 'lightblue',
+                        'width': '30px',
+                        'height': '30px'
+                    }
+                },{
+                    label: 'Zona oeste de Santa Fe',
+                    html: '<img src="IMG/img_Region3.png"><\img>',
+                    style: {
+                        'background-color': 'white',
+                        'width': '30px',
+                        'height': '30px'
+                    }
+                }
+            ]
+             }],
+             collapseSimple: true,
+             detectStretched: true,
+             collapsedOnInit: true,
+             defaultOpacity: 0.7,
+             visibleIcon: 'icon icon-eye',
+             hiddenIcon: 'icon icon-eye-slash',
+             updateOpacity: function (layer, opacity) {
+                    layer.setStyle({fillOpacity: opacity })
+                }
+        })
+        map.addControl(layer1)
             // Añadimos el control de opacidad de las capas
     var layer1 = L.control.htmllegend({
               position: 'bottomright',
               legends: [{
-                name: 'Datos Mirti',
+                name: "<center>"+'Riesgo de trabajo infantil'+"<br>"+'y adolescente'+"<\center>",
                 layer: datos_mirti,
                 elements: [{
                     label: 'Alto Riesgo',
                     html: '',
                     style: {
-                        'background-color': 'darkBlue',
-                        'width': '10px',
-                        'height': '10px'
+                        'background-color': '#2B83BA',
+                        'width': '30px',
+                        'height': '30px'
                     }
                 }, {
                     label: 'Medio Riesgo',
                     html: '',
                     style: {
-                        'background-color': 'lightblue',
-                        'width': '10px',
-                        'height': '10px'
+                        'background-color': '#00CFFF',
+                        'width': '30px',
+                        'height': '30px'
                     }
                 },{
                     label: 'Bajo Riesgo',
                     html: '',
                     style: {
                         'background-color': 'white',
-                        'width': '10px',
-                        'height': '10px'
+                        'width': '30px',
+                        'height': '30px'
                     }
                 }
             ]
@@ -523,31 +491,55 @@
         var layer2 = L.control.htmllegend({
               position: 'bottomright',
               legends: [{
-                name: 'Área de producción \n de algodón',
+                name: "<center>"+'Área sembrada de algodón'+"<br>"+'por departamento'+"<\center>",
                 layer: algodon_19_20,
                 elements: [{
-                    label: 'Alto Riesgo',
+                    label: '0.0 - 0.0',
                     html: '',
                     style: {
-                        'background-color': 'darkBlue',
-                        'width': '10px',
-                        'height': '10px'
+                        'background-color': '#FFFFFF',
+                        'width': '30px',
+                        'height': '30px'
                     }
                 }, {
-                    label: 'Medio Riesgo',
+                    label: '0.0 - 2500',
                     html: '',
                     style: {
-                        'background-color': 'lightblue',
-                        'width': '10px',
-                        'height': '10px'
+                        'background-color': '#F8C5C1',
+                        'width': '30px',
+                        'height': '30px'
                     }
                 },{
-                    label: 'Bajo Riesgo',
+                    label: '2500 - 6464',
                     html: '',
                     style: {
-                        'background-color': 'white',
-                        'width': '10px',
-                        'height': '10px'
+                        'background-color': '#F47660',
+                        'width': '30px',
+                        'height': '30px'
+                    }
+                },{
+                    label: '6464 - 11817',
+                    html: '',
+                    style: {
+                        'background-color': '#FB0800',
+                        'width': '30px',
+                        'height': '30px'
+                    }
+                },{
+                    label: '11817 - 21020',
+                    html: '',
+                    style: {
+                        'background-color': '#DF001F',
+                        'width': '30px',
+                        'height': '30px'
+                    }
+                },{
+                    label: '21020 - 33008',
+                    html: '',
+                    style: {
+                        'background-color': '#662202',
+                        'width': '30px',
+                        'height': '30px'
                     }
                 }
             ]
@@ -573,7 +565,6 @@
         
         map.addControl(layer2)
         controlCapas.addTo(map)    
-        
     });
         
     </script>

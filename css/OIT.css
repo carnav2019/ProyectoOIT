@@ -227,3 +227,18 @@ body {
 .IMG-CPA{
     width: 90%;
 }
+@media (min-width: 350px) {
+    @media (max-width: 600px) {
+        .Titulo {
+            font-size: 2vh;
+        }
+    }
+    
+}
+
+@media (max-width: 349px) {
+    .Titulo {
+        font-size: 1.5vh;
+    }
+}
+    

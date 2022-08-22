@@ -1,4 +1,3 @@
-
 // Agregar información para interpretar las capas
 var btnAbrirPopup = document.getElementById('btn-abrir-popup'),
 	overlay = document.getElementById('overlay'),
@@ -21,4 +20,12 @@ function myFunction() {
     window.print();
 }
 
+var abrirCanva = document.getElementById('contCharOpen');
+function cerrarChart(){
+    abrirCanva.classList.remove('active');
+    }
+
+function abrirChart(){
+    abrirCanva.classList.add('active');
+}
 

@@ -38,14 +38,16 @@
     <script src="js/leaflet.browser.print.js"></script>
     <!-- añadir paquete para descagar el mapa -->
     <script src="dist/bundle.js"></script>
-    <!-- Añadir boostrap para botones -->
-    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+    <!-- Añadir la librería Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
 </head>
 <body>
      <!-- añadir archivo datos MIRTI Actualizados-->
      <script src="js/Datos_MIRTI_3_Provincias_Act.js"></script>
      <!-- añadir archivo de perfiles de productores -->
      <script src="js/Perfil_de_productor.js"></script>
+     <!-- añadir archivo de perfiles de productores json -->
+     <script src="js/Perfil_de_productor.json"></script>
      <!-- añadir archivo área sembrada de Algodón 2019-2020 -->
      <script src="js/Area Algodon_19_20.js"></script>
     <!-- Añadir el GeoJson de desmotadoras -->
@@ -64,6 +66,44 @@
         <button id="imprimir-mapa" class="btn btn-primary hidden-print" onclick="myFunction()"><img width="30" height="30" src="IMG/icono_impresora.png" alt=""></button>
    </center>
      <!-- Agregar el div del mapa -->
+    <div id="sidebar-popup" class="">
+        <div class="titulo-sidebar"></div>
+        <table class="tablaDatos">
+          <tbody class="tableEncab">
+            <tr class="tableTr">
+              <th class ="tableTh">Categoría <br>
+                <br>
+                <td class="td-sidebar"><div class="Minif"></div></td>
+                <td class="td-sidebar"><div class="peq_pro"></div></td>
+                <td class="td-sidebar"><div class="med_pro"></div></td>
+                <td class="td-sidebar"><div class="gra_pro"></div></td>
+              </th>
+              <tr class="tableTr">
+                <th class ="tableTh">% de productores por tipología
+                  <td class="td-sidebar"><div class="p_Minif"></div></td>
+                  <td class="td-sidebar"><div class="p_peq_pro"></div></td>
+                  <td class="td-sidebar"><div class="p_med_pro"></div></td>
+                  <td class="td-sidebar"><div class="p_gra_pro"></div></td>
+              </th>
+              <tr class="tableTr">
+                <th class ="tableTh">% área sembrada
+                  <td class="td-sidebar"><div class="s_Minif"></div></td>
+                  <td class="td-sidebar"><div class="s_peq_pro"></div></td>
+                  <td class="td-sidebar"><div class="s_med_pro"></div></td>
+                  <td class="td-sidebar"><div class="s_gra_pro"></div></td>
+              </th>
+          </tbody>
+        </table>
+        <br>
+      <button class="btn-close" onclick="abrirChart()">⇗</button>
+      <canvas id="myChart"></canvas>
+        <br>
+        <button id="boton-cerrar-sidebar-popup" class="btn-close">OK</button>
+    </div>
+    <div id="contCharOpen" class="contCharOpen">
+      <canvas id="myChartOpen"></canvas>
+      <button class="btn-close-chart" onclick="cerrarChart()">OK</button>
+    </div>
      <div class="contenedor-mapa" id="contenedor-mapa">
         <button id="btn-abrir-popup" class="btn-abrir-popup"><img width="30" height="30" src="IMG/logo_info.png" alt=""></button>
          <div id="map"></div>
@@ -286,9 +326,172 @@
         });
 
 
-    //    Añadir las diferentes trama de fondo para cada
-    //    Perfil de productores
-        var stripes_1 = new L.StripePattern({
+    /*=======================================================
+        Añadir la ventana emergente para las tipologías de productores
+        ==========================================================*/
+    var sidebar = document.getElementById('sidebar-popup');
+   function onEachFeature(feature, layer) {
+	layer.on('click', function(e) {
+	  //Para tipologí de productor
+	  $(".titulo-sidebar").html("Tipología de Productores: "+ feature.properties.Nombre +" "+feature.properties.provincia+'<img id="imagen-sidebar" src="'+feature.properties.img_src+'"></img>')
+	  $(".Minif").html(feature.properties.Minif);
+	  $(".peq_pro").html(feature.properties.peq_pro);
+	  $(".med_pro").html(feature.properties.med_pro);
+	  $(".gra_pro").html(feature.properties.gra_prod);
+	  //Para % área de productores por Tipología
+	  $(".p_Minif").html(feature.properties.p_min);
+	  $(".p_peq_pro").html(feature.properties.p_pequ_pro);
+	  $(".p_med_pro").html(feature.properties.p_prod_med);
+	  $(".p_gra_pro").html(feature.properties.p_grad_pro);
+	  //Para % área ocupada por productor
+	  $(".s_Minif").html(feature.properties.p_sup_min);
+	  $(".s_peq_pro").html(feature.properties.p_sup_peq);
+	  $(".s_med_pro").html(feature.properties.p_sup_med);
+	  $(".s_gra_pro").html(feature.properties.p_sup_gran);
+	  map.fitBounds(e.target.getBounds());
+    fetch(`js/Perfil_de_productor.json`)
+    .then(async (data) => {
+    if (data.ok) {
+        data = await data.json()
+        table(data)
+    }
+    })
+    
+    function table(data){
+      var listaTp = new Array(
+      data[feature.properties.id].properties.Minif
+      ,data[feature.properties.id].properties.peq_pro
+      ,data[feature.properties.id].properties.med_pro
+      ,data[feature.properties.id].properties.gra_prod)
+      var listaPorc = new Array(
+        data[feature.properties.id].properties.p_min
+        ,data[feature.properties.id].properties.p_pequ_pro
+        ,data[feature.properties.id].properties.p_prod_med
+        ,data[feature.properties.id].properties.p_grad_pro)
+      var listaPocSup = new Array(
+          data[feature.properties.id].properties.p_sup_min
+          ,data[feature.properties.id].properties.p_sup_peq
+          ,data[feature.properties.id].properties.p_sup_med
+          ,data[feature.properties.id].properties.p_sup_gran);
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const ctx2 = document.getElementById('myChartOpen').getContext('2d');
+    const myChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+      labels: listaTp,
+      datasets: [{
+          label: '% productores',
+          data: listaPorc,
+          backgroundColor: [
+            'rgb(31, 130, 18)',
+            'rgb(31, 130, 18)',
+            'rgb(31, 130, 18)',
+            'rgb(31, 130, 18)',
+          ],
+          borderColor: [
+            'rgb(31, 130, 18)',
+            'rgb(31, 130, 18)',
+            'rgb(31, 130, 18)',
+            'rgb(31, 130, 18)',
+          ],
+          borderWidth: 0
+      },
+      {
+        label: '% área sembrada',
+        data: listaPocSup,
+        backgroundColor: [
+          'rgb(255, 145, 0)',
+          'rgb(255, 145, 0)',
+          'rgb(255, 145, 0)',
+          'rgb(255, 145, 0)'
+        ],
+        borderColor: [
+          'rgb(255, 145, 0)',
+          'rgb(255, 145, 0)',
+          'rgb(255, 145, 0)',
+          'rgb(255, 145, 0)'
+        ],
+        borderWidth: 0
+    }]
+  },
+  options: {
+      plugins: {
+          legend: {
+              labels: {
+                  font: {
+                      size: 9
+                  }
+              }
+          }
+      },
+      scales: {
+          y: {
+              beginAtZero: true
+          }
+      }
+     }
+    });
+    const myChartOpen = new Chart(ctx2, {
+      type: 'horizontalBar',
+      data: {
+        labels: listaTp,
+        datasets: [{
+            label: '% productores',
+            data: listaPorc,
+            backgroundColor: [
+              'rgb(31, 130, 18)',
+              'rgb(31, 130, 18)',
+              'rgb(31, 130, 18)',
+              'rgb(31, 130, 18)',
+            ],
+            borderColor: [
+              'rgb(31, 130, 18)',
+              'rgb(31, 130, 18)',
+              'rgb(31, 130, 18)',
+              'rgb(31, 130, 18)',
+            ],
+            borderWidth: 0
+        },
+        {
+          label: '% área sembrada',
+          data: listaPocSup,
+          backgroundColor: [
+            'rgb(255, 145, 0)',
+            'rgb(255, 145, 0)',
+            'rgb(255, 145, 0)',
+            'rgb(255, 145, 0)'
+          ],
+          borderColor: [
+            'rgb(255, 145, 0)',
+            'rgb(255, 145, 0)',
+            'rgb(255, 145, 0)',
+            'rgb(255, 145, 0)'
+          ],
+          borderWidth: 0
+      }]
+    },
+    options: {
+        plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        size: 9
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+       }
+      });
+     }
+	});
+  }
+  var stripes_1 = new L.StripePattern({
                                       angle: 45,
                                       weight: 2,
                                       color: 'black',
@@ -321,6 +524,7 @@
         stripes_5.addTo(map);
 
         var perfilProductores = L.geoJson(perfilProductor,{
+            onEachFeature: onEachFeature,
             style: function(feature){
                 switch (feature.properties.id){
                     case 1 : return {fillPattern:stripes_1,
@@ -358,7 +562,20 @@
                 }
 
             }
-        });
+        }).on("click", runTabs);
+  
+    var botonCerrarSidebarPpopup = document.getElementById("boton-cerrar-sidebar-popup");
+
+    var abrirCanva = document.getElementById('contCharOpen');
+    
+     // center map when click on marker
+     function runTabs() {
+       sidebar.classList.add('active');
+          botonCerrarSidebarPpopup.addEventListener('click',function(){
+          sidebar.classList.remove('active');
+        abrirCanva.classList.remove('active');
+      } )
+     }
         
         // Hacer un diccionario con los mapa base que podemos usar
         var baseMaps = [{
@@ -370,6 +587,7 @@
                 layer: OSM}
             ]
         }];
+        
         // Unir las capas que pretendemos controlar mediante la función L.control.layers()
         var capas = [{
             group:"Capas del Proyecto",

@@ -229,7 +229,7 @@ body {
     width: 90%;
 }
 @media (min-width: 450px) {
-    @media (max-width: 700px) {
+    @media (max-width: 900px) {
         .Titulo {
             font-size: 2vh;
         }
@@ -254,4 +254,143 @@ body {
         font-size: 16px;
     }
 }
+/*==============================================================
+Ajustes del panel emergente al hacer click en cada región 
+de tipología de productor
+=====================================================================*/
+/*Configuración del sidebar*/
+#sidebar-popup{
+    border-radius: 10px;
+    margin-top: 57vh;
+    margin-left: 1vh;
+    z-index: 2;
+    position: absolute;
+    width: 250px;
+    height: auto;
+    font-size: 9px;
+    padding: 1px;
+    color: indigo;
+    background-color: rgba(208, 198, 198, 0.818);
+    visibility: hidden;
+  }
+  #sidebar-popup.active{
+    visibility: visible;
+  }
+  /*==========================================================*/
+  /*Ajustes de la tabla de resumen de los primeros 3 datos*/
+  /*==========================================================*/
+  .titulo-sidebar{
+    position: sticky;
+    display: flex;
+    top: 0;
+    color: rgb(20, 44, 143);
+    background: #147a19b2;
+    padding: 5px 5px 5px 5px;
+    font-size: 16px;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .tablaDatos {
+    margin-top: 3px;
+    margin-left: 3px;
+    width: auto;
+  }
+  .tableEncab {
+    display: flex;
+    justify-content: space-around;  
     
+  }
+  .tableTr {
+    border: 1px solid rgb(121, 121, 121);
+    display: grid;
+    text-align: center;  
+   
+  }
+  
+  .tableTh {
+    border-bottom: 1px solid black;
+    text-align: center;
+    margin: 3px;
+    
+  }
+  .td-sidebar{
+    border-bottom: 1px solid black;
+  }
+  
+  .tableTrpre {
+    border: 1px solid black;
+    padding-left: 5px;
+    padding-right: 5px;
+    display: grid;
+    text-align: center;
+  }
+  .btn-close {
+    position: relative;
+    margin-left: 223px;
+    padding: .25em .25em;
+    color: rgb(0, 0, 0);
+    background-color: rgba(103, 97, 97, 0.222);
+    border: 0;
+    border-radius: .25rem;
+    
+  }
+  .btn-close-chart {
+    position: relative;
+    margin-left: 95%;
+    padding: .25em .25em;
+    color: rgb(0, 0, 0);
+    background-color: rgba(103, 97, 97, 0.222);
+    border: 0;
+    border-radius: .25rem;
+    
+  }
+  @media (max-width: 820px) {
+    .btn-close-chart {
+      margin-left: 90%;
+      padding: 10px;
+      
+    }
+    
+  }
+  @media (max-width: 520px) {
+    .btn-close-chart {
+      margin-left: 84%;
+      padding: 10px;
+      
+    }
+    
+  }
+  
+  #imagen-sidebar{
+    width: 50px;
+    height: 50px;
+    margin-left: 5px;
+  
+  }
+  #myChart{
+    width: 240px;
+    height: 170px;
+  }
+  .contCharOpen{
+    position: absolute;
+    visibility: hidden;
+  }
+  .contCharOpen.active{
+    position: absolute;
+    z-index: 2;
+    margin-top: 57vh;
+    margin-left: 1vh;
+    min-width: 250px;
+    max-width: 600px;
+    width: 60%;
+    height: 205h;
+    background-color: rgba(208, 198, 198, 0.902);;
+    visibility: visible;
+  }
+  #myChartOpen{
+    width: 55%;
+    height: 43%;
+    min-width: 240px;
+    max-width: 550px;
+  }

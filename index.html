@@ -330,9 +330,20 @@
         Añadir la ventana emergente para las tipologías de productores
         ==========================================================*/
     var sidebar = document.getElementById('sidebar-popup');
+    //Definir variables para los gráficos
+    var myChart;
+    var myChartOpen;
    function onEachFeature(feature, layer) {
 	layer.on('click', function(e) {
-	  //Para tipologí de productor
+    //Comprobar si existen gráficos, en caso de ser verdadero los destruye
+    if(myChart != null){
+        myChart.destroy();
+    }
+    if(myChartOpen != null){
+        myChartOpen.destroy();
+    }
+    
+	  //Para tipología de productor
 	  $(".titulo-sidebar").html("Tipología de Productores: "+ feature.properties.Nombre +" "+feature.properties.provincia+'<img id="imagen-sidebar" src="'+feature.properties.img_src+'"></img>')
 	  $(".Minif").html(feature.properties.Minif);
 	  $(".peq_pro").html(feature.properties.peq_pro);
@@ -376,7 +387,7 @@
 
     const ctx = document.getElementById('myChart').getContext('2d');
     const ctx2 = document.getElementById('myChartOpen').getContext('2d');
-    const myChart = new Chart(ctx, {
+    myChart = new Chart(ctx, {
     type: 'horizontalBar',
     data: {
       labels: listaTp,
@@ -432,7 +443,8 @@
       }
      }
     });
-    const myChartOpen = new Chart(ctx2, {
+
+    myChartOpen = new Chart(ctx2, {
       type: 'horizontalBar',
       data: {
         labels: listaTp,
@@ -491,6 +503,7 @@
      }
 	});
   }
+  
   var stripes_1 = new L.StripePattern({
                                       angle: 45,
                                       weight: 2,
@@ -527,33 +540,33 @@
             onEachFeature: onEachFeature,
             style: function(feature){
                 switch (feature.properties.id){
-                    case 1 : return {fillPattern:stripes_1,
+                    case 0 : return {fillPattern:stripes_1,
                     width:0.5,
                     color: 'black',
                     opacity:0,
                     fillOpacity: 0.75
                     };
 
-                    case 2 : return {fillPattern: stripes_2,
+                    case 1 : return {fillPattern: stripes_2,
                     width:0.5,
                     color: 'black',
                     opacity:0,
                     fillOpacity: 0.75
                     };
 
-                    case 3 : return {fillPattern: stripes_3,
+                    case 2 : return {fillPattern: stripes_3,
                     width: 0.5,
                     color: 'black',
                     opacity:0,
                     fillOpacity: 0.75
                     };
-                    case 5 : return {fillPattern: stripes_4,
+                    case 4 : return {fillPattern: stripes_4,
                     width: 0.5,
                     color: 'black',
                     opacity:0,
                     fillOpacity: 0.75
                     };
-                    case 4 : return {fillPattern: stripes_5,
+                    case 3 : return {fillPattern: stripes_5,
                     width: 0.5,
                     color: 'black',
                     opacity:0,

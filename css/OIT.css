@@ -388,6 +388,23 @@ de tipología de productor
     background-color: rgba(208, 198, 198, 0.902);;
     visibility: visible;
   }
+  @media (max-height: 1050px) {
+    .contCharOpen.active{
+      margin-top: 45vh;
+    }
+    #sidebar-popup{
+      margin-top: 45vh;
+    }
+  }
+  @media (max-height: 800px) {
+    .contCharOpen.active{
+      margin-top: 35vh;
+    }
+    #sidebar-popup{
+      margin-top: 35vh;
+    }
+  }
+
   #myChartOpen{
     width: 55%;
     height: 43%;
